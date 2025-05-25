@@ -1,0 +1,65 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Markdown PDF</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"/>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+          margin: 20px;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>Sample Title</h1>
+<p>This is a <strong>bold</strong> statement with <em>emphasis</em>.</p>
+<ul>
+<li>Item 1</li>
+<li>Item 2</li>
+</ul>
+<pre><code class="language-js">console.log(&quot;Hello, world!&quot;);
+</code></pre>
+<p>An emoji: 📡</p>
+<p>A Subscript: H<sub>2</sub>0</p>
+<p>A Superscript: 29<sup>th</sup></p>
+<p>A formula: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mi>m</mi><msup><mi>c</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">E = mc^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></p>
+<p>A footnote:</p>
+<p>Here is a footnote reference,<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> and another.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+<p>A warning container:</p>
+<div class="warning">
+<p><em>here be dragons</em></p>
+</div>
+<p>A spoiler container:</p>
+<details><summary>click me</summary>
+<p><em>content</em></p>
+</details>
+<p>A Tasklist:</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> Item1</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> Item1</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> Item1</li>
+</ul>
+<p>A Mermaid diagram:</p>
+<pre><code class="language-mermaid">graph TD
+  A --&gt; B
+</code></pre>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Here is the footnote. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>Here’s one with multiple blocks.</p>
+<p>Subsequent paragraphs are indented to show that they
+belong to the previous footnote. <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </body>
+    </html>
+  

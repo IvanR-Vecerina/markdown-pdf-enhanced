@@ -1,9 +1,9 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-//import * as fs from 'fs/promises';
-//import * as path from 'path';
-//import { renderMarkdown } from './converter/markdownToHtml';
+import * as fs from 'fs/promises';
+import * as path from 'path';
+import { renderMarkdown } from './converter/markdownToHtml';
 
 // This method is called when the extension is activated
 // Your extension is activated the very first time the command is executed
@@ -24,14 +24,18 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		// Get the markdown content to convert
-		/*const markdownContent = editor.document.getText();
+		const markdownContent = editor.document.getText();
 
 		vscode.window.showInformationMessage("Conversion to PDF started...");
+		console.log('1');
 
 		const html = renderMarkdown(markdownContent);
+		console.log('2');
 		const tempHtmlPath = path.join( path.dirname(editor.document.uri.fsPath), "shrfgffusezdfgusrwefsd.html");
+		console.log('3');
 
-		await fs.writeFile(tempHtmlPath, html);*/
+		await fs.writeFile(tempHtmlPath, html);
+		console.log('4');
 
 		const outputName = editor.document.fileName.concat(".pdf");
 		const outputPath = vscode.Uri.joinPath(editor.document.uri, outputName);
