@@ -8,6 +8,12 @@ export function renderMarkdown(markdown: string): string {
     html: true,
     linkify: true,
     typographer: true,
+    highlight: (str: string, lang: string): string => {
+      if (lang === 'mermaid') {
+        return `<div class="mermaid">${str}</div>`;
+      }
+      return `<pre><code class="language-${lang}">${md.utils.escapeHtml(str)}</code></pre>`;
+    }
   });
 		console.log('HTML 2');
   const taskLists = require('markdown-it-task-lists');
@@ -55,6 +61,9 @@ export function renderMarkdown(markdown: string): string {
       <title>Markdown PDF</title>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"/>
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.esm.min.mjs';
+      </script>
       <style>
         body {
           font-family: Arial, sans-serif;
