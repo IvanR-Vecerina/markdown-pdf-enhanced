@@ -3,7 +3,6 @@ import { full as emoji } from 'markdown-it-emoji';
 
 export function renderMarkdown(markdown: string): string {
   
-		console.log('HTML 1');
   const md = new MarkdownIt({
     html: true,
     linkify: true,
@@ -15,10 +14,8 @@ export function renderMarkdown(markdown: string): string {
       return `<pre><code class="language-${lang}">${md.utils.escapeHtml(str)}</code></pre>`;
     }
   });
-		console.log('HTML 2');
   const taskLists = require('markdown-it-task-lists');
 
-		console.log('HTML 3');
   md.use(emoji)
     .use(require('markdown-it-footnote'))
     .use(require('markdown-it-container'), 'info')
@@ -48,10 +45,8 @@ export function renderMarkdown(markdown: string): string {
     .use(require('@vscode/markdown-it-katex').default)
 ;
 
-		console.log('HTML 4');
   const body = md.render(markdown);
 
-		console.log('HTML 5');
   return `
     <!DOCTYPE html>
     <html>
