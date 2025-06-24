@@ -1,31 +1,133 @@
 # markdown-pdf-enhanced README
 
-This is the README for your extension "markdown-pdf-enhanced". After writing up a brief description, we recommend including the following sections.
+The markdown-pdf-enhanced extension is designed to enhance the functionality of Markdown files in Visual Studio Code by providing additional features for exporting and formatting Markdown documents. This extension strives to offer a more updated, maintainable and customizable experience compared to the original `markdown-pdf` extension which hasn't been updated in years and I found convoluted.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+### Command Palette
 
-For example if there is an image subfolder under your extension project workspace:
+This extension provides the following functionality :
 
-\!\[feature X\]\(images/feature-x.png\)
+* **Export to PDF**: Convert Markdown files to PDF format with a clean styling and customistation options.
+* **Export to HTML**: Convert Markdown files to HTML format with styling options. `WIP`
+* **Export to both PDF and HTML**: Allows users to export their Markdown files to both formats simultaneously. `WIP`
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+### Suppoted Markdown Extended Features
+
+#### **Mermaid Diagrams**
+
+Support for Mermaid diagrams, allowing users to create flowcharts, sequence diagrams, and more directly within their Markdown files.
+
+```markdown
+    ```mermaid
+    flowchart LR
+        Start --> Stop
+    ```
+```
+
+#### **PlantUML Diagrams** `WIP`
+
+Support for PlantUML diagrams, enabling users to create UML diagrams, class diagrams, and other types of diagrams within their Markdown files.
+
+```markdown
+```
+
+#### **Container Blocks**
+
+Support for the following containers with special formatting:
+
+* Spoiler
+* Warning
+* Info
+* Tip `WIP`
+* Danger `WIP`
+
+```markdown
+::: warning
+*here be dragons*
+:::
+
+::: spoiler click me
+*content*
+:::
+```
+
+#### Katex Math
+
+Support for katex style mathematical expressions and formulas.
+
+```markdown
+$E = mc^2$
+```
+
+#### Emojis
+
+Supports emojis.
+
+```markdown
+:satellite:
+```
+
+#### Subscript
+
+```markdown
+H~2~0
+```
+
+#### Superscript
+
+```markdown
+29^th^
+```
+
+#### Footnotes `Being assessed for removal`
+
+```markdown
+Here is a footnote reference,[^1] and another.[^longnote]
+
+[^1]: Here is the footnote.
+
+[^longnote]: Here's one with multiple blocks.
+
+    Subsequent paragraphs are indented to show that they
+belong to the previous footnote.
+```
+
+#### Tasklists
+
+```markdown
+- [ ] Item1
+- [x] Item1
+- [ ] Item1
+```
+
+#### Custom CSS stylesheets `WIP`
+
+The idea is to allow you to be able to tailor the look and feel of your PDF using a CSS stylesheet example.
+
+#### Custom Headers and Footers `WIP`
+
+Would allow you to set anything you want in them. With some macros available for author, date, ...
+
+#### Offline Usability `WIP`
+
+Would let you use the whole tool with no internet connection.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+At the moment, this extension does not have any specific requirements beyond Visual Studio Code and an internet connection for fetching external libraries. `Later on, we will add support for plantuml, local libraries and offline usage.`
 
-## Extension Settings
+## Extension Settings `WIP`
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+Users can customize the behavior of the extension through the settings in Visual Studio Code. The following options are available:
 
-For example:
+### `markdownPdfEnhanced.externalModules`
 
-This extension contributes the following settings:
+The section allows users to specify path to the external modules that will be used for the conversion process. This is useful for users who want to use offline versions of the libraries or have specific requirements for their Markdown processing.
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+* `markdownPdfEnhanced.externalModules.mermaidPath`: Custom path to the Mermaid `mermaid.esm.min.mjs` file.
+* `markdownPdfEnhanced.externalModules.plantUmlPath`: Custom path to the PlantUML `plantuml` server or local jar file.
+* `markdownPdfEnhanced.externalModules.plantUmlPathIsLocal`: Boolean flag to indicate whether the provided `plantUmlPath` is a local jar file or a server URL. If set to `true`, the extension will treat the path as a local file; otherwise, it will treat it as a URL.
 
 ## Known Issues
 
@@ -33,19 +135,9 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+Currently pre version 1, basic conversion works, no pretty styles or configuration yet.
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+### *No Release Yet*
 
 ---
 
@@ -54,18 +146,3 @@ Added features X, Y, and Z.
 Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
 
 * [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
