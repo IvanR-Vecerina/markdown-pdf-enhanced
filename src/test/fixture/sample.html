@@ -1,0 +1,625 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown PDF</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <style>
+    /* Reset and base layout */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.7;
+      padding: 2rem;
+      background-color: #f9f9f9;
+      color: #333;
+      max-width: 850px;
+      margin: auto;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: bold;
+      margin: 2em 0 1em;
+      line-height: 1.3;
+      color: #1a1a1a;
+    }
+
+    /* Header sizes */
+    h1 {
+      font-size: 2.25rem;  /* ~36px */
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.3em;
+    }
+
+    h2 {
+      font-size: 1.75rem;  /* ~28px */
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.25em;
+    }
+
+    h3 {
+      font-size: 1.5rem;   /* ~24px */
+    }
+
+    h4 {
+      font-size: 1.25rem;  /* ~20px */
+    }
+
+    h5 {
+      font-size: 1.1rem;   /* ~18px */
+      letter-spacing: 0.03em;
+      color: #444;
+    }
+
+    h6 {
+      font-size: 1rem;     /* ~16px */
+      font-weight: 500;
+      color: #555;
+      font-style: italic;
+    }
+
+    /* Paragraphs and text elements */
+    p {
+      margin: 1em 0;
+    }
+
+    strong {
+      font-weight: 700;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    /* Lists */
+    ul, ol {
+      padding-left: 1em;
+      margin: 0.1em 0;
+    }
+
+    li {
+      margin: 0.25em 0;
+    }
+
+    /* Task lists */
+    ul.contains-task-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .task-list-item {
+      margin-left: 1.5em;
+      position: relative;
+    }
+
+    .task-list-item-checkbox {
+      margin-left: -1.5em;
+      margin-right: 0.5em;
+    }
+
+    /** Inline code */
+    code {
+      background-color: rgba(0, 0, 0, 0.05);
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    /* Code blocks*/
+    pre {
+      color: #f8f8f2;
+      padding: 1em;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 0.95em;
+    }
+
+    /* Code Block code */
+    pre > code {
+    display: block;
+    background-color: rgba(204, 77, 77, 0);
+    color: #505050;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 0.9em;
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    white-space: pre;
+    }
+
+    /* Mermaid diagrams */
+    .mermaid {
+      background: #ffffff;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      padding: 1em;
+      margin: 1em 0;
+      overflow-x: auto;
+    }
+
+    /* Footnotes */
+    .footnote-ref {
+      font-size: 0.8em;
+    }
+
+    .footnotes {
+      border-top: 1px solid #ddd;
+      margin-top: 2em;
+      padding-top: 1em;
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    .footnotes ol {
+      padding-left: 1.5em;
+    }
+
+    /* Images */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1em 0;
+      border-radius: 6px;
+    }
+
+    /* WARNING */
+    .warning {
+      border-left: 6px solid #ffc107;
+      background-color: #fff8e1;
+      color: #795548;
+      padding: 0.1em 1.25em;
+      margin: 1.5em 0;
+      border-radius: 4px;
+      font-size: 0.95em;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    /* TIP */
+    .tip {
+      border-left: 6px solid #4caf50;
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      padding: 0.1em 1.25em;
+      margin: 1.5em 0;
+      border-radius: 4px;
+      font-size: 0.95em;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    /* INFO */
+    .info {
+      border-left: 6px solid #2196f3;
+      background-color: #e3f2fd;
+      color: #1565c0;
+      padding: 0.1em 1.25em;
+      margin: 1.5em 0;
+      border-radius: 4px;
+      font-size: 0.95em;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    /* SPOILER */
+    .spoiler-open {
+      border-left: 6px solid #9e9e9e;
+      background-color: #f5f5f5;
+      color: #424242;
+      padding: 0.1em 1.25em;
+      margin: 1.5em 0;
+      border-radius: 4px;
+      font-size: 0.95em;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Optional visual cue */
+    .spoiler-open[open] summary::after {
+      content: " (shown)";
+      font-style: italic;
+      color: #666;
+    }
+
+    /* Improve appearance when open */
+    .spoiler-open[open] {
+      background-color: #f0f0f0;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Spoiler toggle styling */
+    .spoiler-open summary {
+      cursor: pointer;
+      font-weight: 600;
+      margin-bottom: 0.5em;
+    }
+
+    details.spoiler-open summary:hover {
+      text-decoration: underline;
+    }
+
+    details.spoiler-open > p {
+      color: #555;
+      margin-left: 1em;
+    }
+
+    /* Links */
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Blockquotes */
+    blockquote {
+      margin: 1em 0;
+      padding: 0.2em 1em;
+      background-color: rgba(0, 0, 124, 0.02);
+      border-left: 4px solid #ccc;
+      color: #555;
+      font-style: italic;
+      border-radius: 4px;
+    }
+
+    /* Nested blockquotes */
+    blockquote blockquote {
+      background-color: rgba(0, 0, 124, 0.02);
+      border-left: 4px solid #aaa;
+      font-style: normal;
+      color: #444;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5em 0;
+      font-size: 0.95em;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.75em 1em;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f1f1f159;
+    }
+
+    tr:hover td {
+      background-color: #f0f8ff;
+    }
+
+    /* Page Breaks */
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+      display: block;
+      height: 0;
+      margin: 0;
+    }
+
+    /* General layout for header and footer */
+    .header,
+    .footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9em;
+      padding: 0.5em 1em;
+      box-sizing: border-box;
+    }
+
+    /* Sections */
+    .header-left,
+    .header-center,
+    .header-right,
+    .footer-left,
+    .footer-center,
+    .footer-right {
+      flex: 1;
+    }
+
+    /* Center content should align center */
+    .header-center,
+    .footer-center {
+      text-align: center;
+    }
+
+    /* Left and right align appropriately */
+    .header-left,
+    .footer-left {
+      text-align: left;
+    }
+    .header-right,
+    .footer-right {
+      text-align: right;
+    }
+
+    /* Logo styling */
+    .logo {
+      max-height: 40px;
+      vertical-align: middle;
+      object-fit: contain;
+    }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.js"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.esm.min.mjs"
+  </script>
+</head>
+<body>
+<h1 id="h1-header" tabindex="-1">H1 Header</h1>
+<ul>
+<li><a href="#h2-header">H2 Header</a>
+<ul>
+<li><a href="#h3-header">H3 Header</a>
+<ul>
+<li><a href="#h4-header">H4 Header</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#text-styling">Text Styling</a></li>
+<li><a href="#lists">Lists</a>
+<ul>
+<li><a href="#unordered">Unordered</a></li>
+<li><a href="#ordered">Ordered</a></li>
+</ul>
+</li>
+<li><a href="#task-list">Task List</a></li>
+<li><a href="#links">Links</a></li>
+<li><a href="#images">Images</a></li>
+<li><a href="#code">Code</a>
+<ul>
+<li><a href="#inline-code">Inline <code>code</code></a></li>
+<li><a href="#code-block">Code block</a></li>
+</ul>
+</li>
+<li><a href="#tables">Tables</a></li>
+<li><a href="#horizontal-rule">Horizontal Rule</a></li>
+<li><a href="#emoji">Emoji</a></li>
+<li><a href="#footnotes">Footnotes</a>
+<ul>
+<li><a href="#single-line-footnote">Single Line Footnote</a></li>
+<li><a href="#multiple-lines-footnote">Multiple Lines Footnote</a></li>
+</ul>
+</li>
+<li><a href="#subscript-and-superscript">Subscript and Superscript</a></li>
+<li><a href="#html-content">HTML Content</a></li>
+<li><a href="#containers">Containers</a>
+<ul>
+<li><a href="#tip-container">Tip container</a></li>
+<li><a href="#info-container">Info container</a></li>
+<li><a href="#warning-container">Warning container</a></li>
+<li><a href="#spoiler-container">Spoiler container</a></li>
+</ul>
+</li>
+<li><a href="#pagebreak">Pagebreak</a></li>
+<li><a href="#mermaid-diagram">Mermaid Diagram</a></li>
+<li><a href="#pagebreak-again">Pagebreak again</a></li>
+<li><a href="#plantuml-diagram">PlantUML Diagram</a></li>
+<li><a href="#solving-a-system-of-linear-equations">Solving a System of Linear Equations</a>
+<ul>
+<li><a href="#step-1-multiply-the-second-equation-by-3">Step 1: Multiply the second equation by 3</a></li>
+<li><a href="#step-2-add-the-two-equations">Step 2: Add the two equations</a></li>
+<li><a href="#step-3-solve-for-x">Step 3: Solve for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></a></li>
+<li><a href="#step-4-substitute-x-back-into-the-first-equation">Step 4: Substitute x back into the first equation</a></li>
+<li><a href="#-final-answer">✅ Final Answer</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="h2-header" tabindex="-1">H2 Header</h2>
+<h3 id="h3-header" tabindex="-1">H3 Header</h3>
+<h4 id="h4-header" tabindex="-1">H4 Header</h4>
+<h5 id="h5-header" tabindex="-1">H5 Header</h5>
+<h6 id="h6-header" tabindex="-1">H6 Header</h6>
+<hr>
+<h2 id="text-styling" tabindex="-1">Text Styling</h2>
+<p>This is <strong>bold</strong> text.<br>
+This is <em>italic</em> text.<br>
+This is <em><strong>bold and italic</strong></em> text.<br>
+This is <s>strikethrough</s> text.<br>
+This is <code>inline code</code>.</p>
+<blockquote>
+<p>This is a blockquote.</p>
+<blockquote>
+<p>Nested blockquote.</p>
+</blockquote>
+</blockquote>
+<hr>
+<h2 id="lists" tabindex="-1">Lists</h2>
+<h3 id="unordered" tabindex="-1">Unordered</h3>
+<ul>
+<li>Item 1</li>
+<li>Item 2
+<ul>
+<li>Subitem 2.1</li>
+<li>Subitem 2.2</li>
+</ul>
+</li>
+</ul>
+<h3 id="ordered" tabindex="-1">Ordered</h3>
+<ol>
+<li>First item</li>
+<li>Second item
+<ol>
+<li>Subitem 2.1</li>
+<li>Subitem 2.2</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h2 id="task-list" tabindex="-1">Task List</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> Unchecked task</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> Checked task</li>
+</ul>
+<hr>
+<h2 id="links" tabindex="-1">Links</h2>
+<p>Inline link: <a href="https://www.openai.com">OpenAI</a><br>
+Reference-style link: <a href="https://www.google.com">Google</a><br>
+Autolink: <a href="https://example.com">https://example.com</a></p>
+<hr>
+<h2 id="images" tabindex="-1">Images</h2>
+<p><img src="https://img.freepik.com/vecteurs-libre/bonjour-bande-dessinee_53876-26585.jpg" alt="Alt text for image"></p>
+<hr>
+<h2 id="code" tabindex="-1">Code</h2>
+<h3 id="inline-code" tabindex="-1">Inline <code>code</code></h3>
+<p>Inline <code>code</code> in a sentence.</p>
+<h3 id="code-block" tabindex="-1">Code block</h3>
+<pre><code class="language-js">// JavaScript example
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+greet(&quot;World&quot;);
+</code></pre>
+<pre><code class="language-bash"># Bash example
+echo &quot;Hello, terminal!&quot;
+</code></pre>
+<hr>
+<h2 id="tables" tabindex="-1">Tables</h2>
+<table>
+<thead>
+<tr>
+<th>Syntax</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Header</td>
+<td>Title</td>
+</tr>
+<tr>
+<td>Cell</td>
+<td>Data</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="horizontal-rule" tabindex="-1">Horizontal Rule</h2>
+<hr>
+<h2 id="emoji" tabindex="-1">Emoji</h2>
+<p>Here is a smiley 😄<br>
+Here is a rocket 🚀<br>
+Here is an antenna: 📡</p>
+<hr>
+<h2 id="footnotes" tabindex="-1">Footnotes</h2>
+<h3 id="single-line-footnote" tabindex="-1">Single Line Footnote</h3>
+<p>Here is a footnote reference.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<h3 id="multiple-lines-footnote" tabindex="-1">Multiple Lines Footnote</h3>
+<p>Here is a long footnote reference.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+<hr>
+<h2 id="subscript-and-superscript" tabindex="-1">Subscript and Superscript</h2>
+<p>Subscript: H<sub>2</sub>O<br>
+Superscript: 29<sup>th</sup></p>
+<hr>
+<h2 id="html-content" tabindex="-1">HTML Content</h2>
+<div style="color: red; font-weight: bold;">This is a styled div using raw HTML</div>
+<hr>
+<h2 id="containers" tabindex="-1">Containers</h2>
+<h3 id="tip-container" tabindex="-1">Tip container</h3>
+<div class="tip">
+<p><em>Don’t forget</em></p>
+</div>
+<h3 id="info-container" tabindex="-1">Info container</h3>
+<div class="info">
+<p>You are beautiful!</p>
+</div>
+<h3 id="warning-container" tabindex="-1">Warning container</h3>
+<div class="warning">
+<p><strong>He’s coming for you!</strong></p>
+</div>
+<h3 id="spoiler-container" tabindex="-1">Spoiler container</h3>
+<details class="spoiler-open" open><summary class="spoiler-summary">HIDDEN SURPRISE</summary>
+<p><em>Gotcha!</em></p>
+</details>
+<hr>
+<h2 id="pagebreak" tabindex="-1">Pagebreak</h2>
+<div class="page-break"></div>
+<h2 id="mermaid-diagram" tabindex="-1">Mermaid Diagram</h2>
+<div class="mermaid">---
+title: &quot;TCP Packet&quot;
+---
+packet-beta
+0-15: &quot;Source Port&quot;
+16-31: &quot;Destination Port&quot;
+32-63: &quot;Sequence Number&quot;
+64-95: &quot;Acknowledgment Number&quot;
+96-99: &quot;Data Offset&quot;
+100-105: &quot;Reserved&quot;
+106: &quot;URG&quot;
+107: &quot;ACK&quot;
+108: &quot;PSH&quot;
+109: &quot;RST&quot;
+110: &quot;SYN&quot;
+111: &quot;FIN&quot;
+112-127: &quot;Window&quot;
+128-143: &quot;Checksum&quot;
+144-159: &quot;Urgent Pointer&quot;
+160-191: &quot;(Options and Padding)&quot;
+192-255: &quot;Data (variable length)&quot;
+</div>
+<hr>
+<h2 id="pagebreak-again" tabindex="-1">Pagebreak again</h2>
+<div class="page-break"></div>
+<h2 id="plantuml-diagram" tabindex="-1">PlantUML Diagram</h2>
+<img src="https://www.plantuml.com/plantuml/svg/NP0x3iCW341tdyBY1A0eUpvJjofBnueGag1IY82ewkthW5fLsPxjznXeOf8XxKyBodhrG4JM7t3dZ5X6x3c-J5fnqy7u2Mj-5iLN52SHjzr6ZQ96FyzH9nGSHkDaU5FRPM2vx41vfmovh2_0yeCG_BZ7HFQGeTW3I2UjNsZTPYZh5g3XqAE9U9ciXk57xK6Spe9pw8vXDSjQr9iqoRYbsDVWbOxnc7DJKLDHC_oR-IAWqMwYN_i0" alt="uml diagram">
+<hr>
+<h2 id="solving-a-system-of-linear-equations" tabindex="-1">Solving a System of Linear Equations</h2>
+<p>Here is an example of inline math:</p>
+<p>The slope of the line is given by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mfrac><mrow><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub></mrow><mrow><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">m = \frac{y_2 - y_1}{x_2 - x_1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2995em;vertical-align:-0.4451em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8544em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.4461em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:-0.0359em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:-0.0359em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4451em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>.</p>
+<p>Now let’s write a system of equations using KaTeX display math:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn><mi>y</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>6</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mn>4</mn><mi>x</mi><mo>−</mo><mi>y</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>5</mn></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+2x + 3y &amp;= 6 \\
+4x - y &amp;= 5
+\end{aligned}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3em;vertical-align:-1.25em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.75em;"><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">3</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">4</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.25em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.75em;"><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">6</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.25em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
+<h3 id="step-1-multiply-the-second-equation-by-3" tabindex="-1">Step 1: Multiply the second equation by 3</h3>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn><mi>y</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>6</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mn>12</mn><mi>x</mi><mo>−</mo><mn>3</mn><mi>y</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>15</mn></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+2x + 3y &amp;= 6 \\
+12x - 3y &amp;= 15
+\end{aligned}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3em;vertical-align:-1.25em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.75em;"><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">3</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">12</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">3</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.25em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.75em;"><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">6</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">15</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.25em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
+<h3 id="step-2-add-the-two-equations" tabindex="-1">Step 2: Add the two equations</h3>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mo stretchy="false">(</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn><mi>y</mi><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mn>12</mn><mi>x</mi><mo>−</mo><mn>3</mn><mi>y</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>6</mn><mo>+</mo><mn>15</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mn>14</mn><mi>x</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>21</mn></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+(2x + 3y) + (12x - 3y) &amp;= 6 + 15 \\
+14x &amp;= 21
+\end{aligned}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3em;vertical-align:-1.25em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.75em;"><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">3</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mopen">(</span><span class="mord">12</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">3</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">14</span><span class="mord mathnormal">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.25em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.75em;"><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">15</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">21</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.25em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
+<h3 id="step-3-solve-for-" tabindex="-1">Step 3: Solve for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></h3>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mn>21</mn><mn>14</mn></mfrac><mo>=</mo><mfrac><mn>3</mn><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">x = \frac{21}{14} = \frac{3}{2}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">14</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">21</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<h3 id="step-4-substitute-x-back-into-the-first-equation" tabindex="-1">Step 4: Substitute x back into the first equation</h3>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><mrow><mo fence="true">(</mo><mfrac><mn>3</mn><mn>2</mn></mfrac><mo fence="true">)</mo></mrow><mo>+</mo><mn>3</mn><mi>y</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">2\left(\frac{3}{2}\right) + 3y = 6
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">3</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">6</span></span></span></span></span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>3</mn><mo>+</mo><mn>3</mn><mi>y</mi><mo>=</mo><mn>6</mn><mo>⇒</mo><mn>3</mn><mi>y</mi><mo>=</mo><mn>3</mn><mo>⇒</mo><mi>y</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">3 + 3y = 6 \Rightarrow 3y = 3 \Rightarrow y = 1
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">3</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">⇒</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">3</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">⇒</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span></p>
+<h3 id="-final-answer" tabindex="-1">✅ Final Answer</h3>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><menclose notation="box"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="true"><mrow><mi>x</mi><mo>=</mo><mfrac><mn>3</mn><mn>2</mn></mfrac><mo separator="true">,</mo><mspace width="1em"/><mi>y</mi><mo>=</mo><mn>1</mn></mrow></mstyle></mstyle></mstyle></menclose></mrow><annotation encoding="application/x-tex">\boxed{x = \frac{3}{2},\quad y = 1}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.6874em;vertical-align:-1.026em;"></span><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6614em;"><span style="top:-4.6874em;"><span class="pstrut" style="height:4.6874em;"></span><span class="boxpad"><span class="mord"><span class="mord"><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">1</span></span></span></span></span><span style="top:-3.6614em;"><span class="pstrut" style="height:4.6874em;"></span><span class="stretchy fbox" style="height:2.6874em;border-style:solid;border-width:0.04em;"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.026em;"><span></span></span></span></span></span></span></span></span></span></p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>This is the footnote. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>Here’s one with multiple blocks.
+Subsequent paragraphs are indented to show that they belong to the previous footnote.
+Like So. <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+</body>
+</html>

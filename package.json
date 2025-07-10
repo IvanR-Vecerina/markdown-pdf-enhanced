@@ -14,10 +14,101 @@
   "contributes": {
     "commands": [
       {
-        "command": "markdown-pdf-enhanced.convert",
-        "title": "Markdown PDF Enhanced: Convert"
+        "command": "markdownPdfEnhanced.exportToPdf",
+        "title": "Export to PDF",
+        "category": "Markdown PDF Enhanced"
+      },
+      {
+        "command": "markdownPdfEnhanced.exportToHtml",
+        "title": "Export to HTML",
+        "category": "Markdown PDF Enhanced"
+      },
+      {
+        "command": "markdownPdfEnhanced.exportToHtmlAndPdf",
+        "title": "Export to HTML and PDF",
+        "category": "Markdown PDF Enhanced"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "markdownPdfEnhanced.exportToPdf",
+          "when": "resourceLangId == markdown",
+          "group": "navigation"
+        },
+        {
+          "command": "markdownPdfEnhanced.exportToHtml",
+          "when": "resourceLangId == markdown",
+          "group": "navigation"
+        },
+        {
+          "command": "markdownPdfEnhanced.exportToHtmlAndPdf",
+          "when": "resourceLangId == markdown",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Markdown PDF Enhanced",
+      "type": "object",
+      "properties": {
+        "markdownPdfEnhanced.pdfOptions.logoPath": {
+          "type": "string",
+          "default": "https://img.icons8.com/arcade/64/50-percents.png",
+          "description": "Path to a logo image used in header/footer when using {Logo} macro."
+        },
+        "markdownPdfEnhanced.pdfOptions.header.left": {
+          "type": "string",
+          "default": "Ivan - {Date}",
+          "description": "Left-aligned header content. Supports macros."
+        },
+        "markdownPdfEnhanced.pdfOptions.header.center": {
+          "type": "string",
+          "default": "",
+          "description": "Center-aligned header content. Supports macros."
+        },
+        "markdownPdfEnhanced.pdfOptions.header.right": {
+          "type": "string",
+          "default": "{Logo}",
+          "description": "Right-aligned header content. Supports macros."
+        },
+        "markdownPdfEnhanced.pdfOptions.footer.left": {
+          "type": "string",
+          "default": "",
+          "description": "Left-aligned footer content. Supports macros."
+        },
+        "markdownPdfEnhanced.pdfOptions.footer.center": {
+          "type": "string",
+          "default": "{PageNumber} / {TotalPages}",
+          "description": "Center-aligned footer content. Supports macros."
+        },
+        "markdownPdfEnhanced.pdfOptions.footer.right": {
+          "type": "string",
+          "default": "",
+          "description": "Right-aligned footer content. Supports macros."
+        },
+        "markdownPdfEnhanced.pdfOptions.margin.top": {
+          "type": "string",
+          "default": "1in",
+          "description": "Top margin (e.g., 1in, 20mm, 2cm)."
+        },
+        "markdownPdfEnhanced.pdfOptions.margin.right": {
+          "type": "string",
+          "default": "1in",
+          "description": "Right margin."
+        },
+        "markdownPdfEnhanced.pdfOptions.margin.bottom": {
+          "type": "string",
+          "default": "1in",
+          "description": "Bottom margin."
+        },
+        "markdownPdfEnhanced.pdfOptions.margin.left": {
+          "type": "string",
+          "default": "1in",
+          "description": "Left margin."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -38,6 +129,7 @@
     "@typescript-eslint/parser": "^8.31.1",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.5.2",
+    "copy-webpack-plugin": "^13.0.0",
     "eslint": "^9.25.1",
     "ts-loader": "^9.5.2",
     "typescript": "^5.8.3",
@@ -45,18 +137,19 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "@types/markdown-it-anchor": "^7.0.0",
     "@types/markdown-it-container": "^2.0.10",
     "@types/markdown-it-emoji": "^3.0.1",
     "@types/markdown-it-footnote": "^3.0.4",
-    "@vscode/markdown-it-katex": "^1.1.1",
+    "@vscode/markdown-it-katex": "^1.1.2",
     "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0",
     "markdown-it-container": "^4.0.0",
     "markdown-it-emoji": "^3.0.0",
     "markdown-it-footnote": "^4.0.0",
+    "markdown-it-plantuml": "^1.4.1",
     "markdown-it-sub": "^2.0.0",
     "markdown-it-sup": "^2.0.0",
     "markdown-it-task-lists": "^2.1.1",
-    "puppeteer": "^24.9.0"
+    "puppeteer": "^24.12.1"
   }
 }

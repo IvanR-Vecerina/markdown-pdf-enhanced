@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer';
 import * as fs from 'fs/promises';
+import { log } from '../helpers/loggingUtils';
 
 export async function convertHtmlToPdf(htmlPath: string, pdfPath: string, options?: {
   headerTemplate?: string;
@@ -12,22 +13,24 @@ export async function convertHtmlToPdf(htmlPath: string, pdfPath: string, option
     right?: string;
   };
 }) {
-    console.log(`Converting HTML to PDF: ${htmlPath} -> ${pdfPath}`);
+    log(`Converting HTML to PDF: ${htmlPath} -> ${pdfPath}`);
   const browser = await puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
 
-    console.log('Browser launched successfully');
+    log('Browser launched successfully');
+
+    log(options ? `Options provided: ${JSON.stringify(options)}` : 'No options provided');
 
   const page = await browser.newPage();
   const html = await fs.readFile(htmlPath, 'utf-8');
 
-    console.log('HTML content read successfully');
+    log('HTML content read successfully');
 
   await page.setContent(html, { waitUntil: 'networkidle0' });
 
-    console.log('HTML content set on the page');
+    log('HTML content set on the page');
 
   await page.pdf({
     path: pdfPath,
@@ -43,9 +46,9 @@ export async function convertHtmlToPdf(htmlPath: string, pdfPath: string, option
     margin: options?.margin ?? { top: '1.5cm', bottom: '1.5cm', left: '1cm', right: '1cm' },
   });
 
-    console.log(`PDF generated successfully: ${pdfPath}`);
+    log(`PDF generated successfully: ${pdfPath}`);
 
   await browser.close();
 
-    console.log('Browser closed successfully');
+    log('Browser closed successfully');
 }
