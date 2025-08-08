@@ -7,12 +7,23 @@
   "engines": {
     "vscode": "^1.100.0"
   },
+  "license": "SEE LICENSE IN LICENSE.txt",
   "repository": {
     "type": "git",
     "url": "https://github.com/IvanR-Vecerina/markdown-pdf-enhanced.git"
   },
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "markdown",
+    "pdf",
+    "PlantUML",
+    "KaTeX",
+    "markdown-it",
+    "export",
+    "mermaid",
+    "multi-root ready"
   ],
   "activationEvents": [],
   "main": "./dist/extension.js",
