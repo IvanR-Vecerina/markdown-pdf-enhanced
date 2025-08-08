@@ -144,7 +144,7 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 Currently pre version 1, basic conversion works, no pretty styles or configuration yet.
 
-### 0.5.0
+### 0.5.1
 
 Simplest working version of the extension, feel free to provide feedback if you use it. Not all settings work just yet.
 

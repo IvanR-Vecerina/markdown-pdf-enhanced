@@ -2,7 +2,7 @@
   "name": "markdown-pdf-enhanced",
   "displayName": "Markdown PDF Enhanced",
   "description": "Convert Markdown to PDF with support for Mermaid, KaTeX, PlantUML, and more.",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "publisher": "IRVece",
   "engines": {
     "vscode": "^1.100.0"
