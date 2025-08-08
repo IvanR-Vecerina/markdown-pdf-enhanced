@@ -16,11 +16,11 @@
 - [Tables](#tables)
 - [Horizontal Rule](#horizontal-rule)
 - [Emoji](#emoji)
+- [HTML Content](#html-content)
 - [Footnotes](#footnotes)
   - [Single Line Footnote](#single-line-footnote)
   - [Multiple Lines Footnote](#multiple-lines-footnote)
 - [Subscript and Superscript](#subscript-and-superscript)
-- [HTML Content](#html-content)
 - [Containers](#containers)
   - [Tip container](#tip-container)
   - [Info container](#info-container)
@@ -28,7 +28,6 @@
   - [Spoiler container](#spoiler-container)
 - [Pagebreak](#pagebreak)
 - [Mermaid Diagram](#mermaid-diagram)
-- [Pagebreak again](#pagebreak-again)
 - [PlantUML Diagram](#plantuml-diagram)
 - [Solving a System of Linear Equations](#solving-a-system-of-linear-equations)
   - [Step 1: Multiply the second equation by 3](#step-1-multiply-the-second-equation-by-3)
@@ -36,6 +35,9 @@
   - [Step 3: Solve for $x$](#step-3-solve-for-x)
   - [Step 4: Substitute x back into the first equation](#step-4-substitute-x-back-into-the-first-equation)
   - [✅ Final Answer](#-final-answer)
+
+::: page-break
+:::
 
 ## H2 Header
 
@@ -47,8 +49,6 @@
 
 ###### H6 Header
 
----
-
 ## Text Styling
 
 This is **bold** text.  
@@ -59,8 +59,6 @@ This is `inline code`.
 
 > This is a blockquote.
 >> Nested blockquote.
-
----
 
 ## Lists
 
@@ -78,14 +76,13 @@ This is `inline code`.
    1. Subitem 2.1
    2. Subitem 2.2
 
----
+::: page-break
+:::
 
 ## Task List
 
 - [ ] Unchecked task
 - [x] Checked task
-
----
 
 ## Links
 
@@ -95,13 +92,12 @@ Autolink: <https://example.com>
 
 [1]: https://www.google.com
 
----
-
 ## Images
 
 ![Alt text for image](https://img.freepik.com/vecteurs-libre/bonjour-bande-dessinee_53876-26585.jpg)
 
----
+::: page-break
+:::
 
 ## Code
 
@@ -124,8 +120,6 @@ greet("World");
 echo "Hello, terminal!"
 ```
 
----
-
 ## Tables
 
 | Syntax | Description |
@@ -133,11 +127,7 @@ echo "Hello, terminal!"
 | Header | Title       |
 | Cell   | Data        |
 
----
-
 ## Horizontal Rule
-
----
 
 ## Emoji
 
@@ -145,7 +135,12 @@ Here is a smiley 😄
 Here is a rocket 🚀  
 Here is an antenna: 📡
 
----
+## HTML Content
+
+<div style="color: red; font-weight: bold;">This is a styled div using raw HTML</div>
+
+::: page-break
+:::
 
 ## Footnotes
 
@@ -163,20 +158,10 @@ Here is a long footnote reference.[^longnote]
     Subsequent paragraphs are indented to show that they belong to the previous footnote.
     Like So.
 
----
-
 ## Subscript and Superscript
 
 Subscript: H~2~O  
 Superscript: 29^th^
-
----
-
-## HTML Content
-
-<div style="color: red; font-weight: bold;">This is a styled div using raw HTML</div>
-
----
 
 ## Containers
 
@@ -203,8 +188,6 @@ You are beautiful!
 ::: spoiler HIDDEN SURPRISE
 *Gotcha!*
 :::
-
----
 
 ## Pagebreak
 
@@ -237,13 +220,6 @@ packet-beta
 192-255: "Data (variable length)"
 ```
 
----
-
-## Pagebreak again
-
-::: page-break
-:::
-
 ## PlantUML Diagram
 
 @startuml
@@ -270,7 +246,8 @@ R is Waiting
 A is 1
 @enduml
 
----
+::: page-break
+:::
 
 ## Solving a System of Linear Equations
 

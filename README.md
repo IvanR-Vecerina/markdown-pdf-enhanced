@@ -9,8 +9,8 @@ The markdown-pdf-enhanced extension is designed to enhance the functionality of 
 This extension provides the following functionality :
 
 * **Export to PDF**: Convert Markdown files to PDF format with a clean styling and customistation options.
-* **Export to HTML**: Convert Markdown files to HTML format with styling options. `WIP`
-* **Export to both PDF and HTML**: Allows users to export their Markdown files to both formats simultaneously. `WIP`
+* **Export to HTML**: Convert Markdown files to HTML format with styling options.
+* **Export to both PDF and HTML**: Allows users to export their Markdown files to both formats simultaneously.
 
 ### Suppoted Markdown Extended Features
 
@@ -18,18 +18,25 @@ This extension provides the following functionality :
 
 Support for Mermaid diagrams, allowing users to create flowcharts, sequence diagrams, and more directly within their Markdown files.
 
-```markdown
+```md
     ```mermaid
     flowchart LR
         Start --> Stop
     ```
 ```
 
-#### **PlantUML Diagrams** `WIP`
+#### **PlantUML Diagrams**
 
 Support for PlantUML diagrams, enabling users to create UML diagrams, class diagrams, and other types of diagrams within their Markdown files.
 
-```markdown
+```md
+@startuml
+
+Class01 "1" *-- "many" Class02 : contains
+Class03 o-- Class04 : aggregation
+Class05 --> "1" Class06
+
+@enduml
 ```
 
 #### **Container Blocks**
@@ -39,8 +46,8 @@ Support for the following containers with special formatting:
 * Spoiler
 * Warning
 * Info
-* Tip `WIP`
-* Danger `WIP`
+* Tip
+* Danger `Planned Feature`
 
 ```markdown
 ::: warning
@@ -80,7 +87,7 @@ H~2~0
 29^th^
 ```
 
-#### Footnotes `Being assessed for removal`
+#### Footnotes `Assessing for removal so please give feedback`
 
 ```markdown
 Here is a footnote reference,[^1] and another.[^longnote]
@@ -101,23 +108,23 @@ belong to the previous footnote.
 - [ ] Item1
 ```
 
-#### Custom CSS stylesheets `WIP`
+#### Custom CSS stylesheets `Planned Feature`
 
 The idea is to allow you to be able to tailor the look and feel of your PDF using a CSS stylesheet example.
 
-#### Custom Headers and Footers `WIP`
+#### Custom Headers and Footers
 
 Would allow you to set anything you want in them. With some macros available for author, date, ...
 
-#### Offline Usability `WIP`
+#### Offline Usability `Planned Feature`
 
 Would let you use the whole tool with no internet connection.
 
 ## Requirements
 
-At the moment, this extension does not have any specific requirements beyond Visual Studio Code and an internet connection for fetching external libraries. `Later on, we will add support for plantuml, local libraries and offline usage.`
+At the moment, this extension does not have any specific requirements beyond Visual Studio Code and an internet connection for fetching external libraries. `Planning support for local libraries and offline usage.`
 
-## Extension Settings `WIP`
+## Extension Settings `WIP, Planned Settings`
 
 Users can customize the behavior of the extension through the settings in Visual Studio Code. The following options are available:
 
@@ -137,7 +144,9 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 Currently pre version 1, basic conversion works, no pretty styles or configuration yet.
 
-### *No Release Yet*
+### 0.5.0
+
+Simplest working version of the extension, feel free to provide feedback if you use it. Not all settings work just yet.
 
 ---
 

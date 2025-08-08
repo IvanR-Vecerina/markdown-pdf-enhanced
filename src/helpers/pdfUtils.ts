@@ -10,7 +10,7 @@ import { getConfig } from "./extensionUtils";
 export function applyMacros(html: string, name: string): string {
   const logoPath: string | undefined = getConfig("pdfOptions.logoPath");
   const logoHtmlPath = logoPath ? logoPath.replace(/\\/g, "/") : "";
-  const dateString = new Date().toLocaleDateString();
+  const dateString = new Date().toLocaleDateString().slice(0, 10);
 
   return html
     .replace(/\{Logo\}/g, `<img class='logo' src='${logoHtmlPath}' alt='logo'/>`)

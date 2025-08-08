@@ -10,24 +10,28 @@
     /* Reset and base layout */
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      line-height: 1.7;
-      padding: 2rem;
-      background-color: #f9f9f9;
+      line-height: 1.2;
+      padding: 0;
       color: #333;
       max-width: 850px;
       margin: auto;
     }
 
+    script {
+      display: none; /* Hide scripts in the PDF */
+    }
+
     /* Headings */
     h1, h2, h3, h4, h5, h6 {
       font-weight: bold;
-      margin: 2em 0 1em;
-      line-height: 1.3;
+      margin: 1rem 0 0.5rem;
+      line-height: 1.2;
       color: #1a1a1a;
     }
 
     /* Header sizes */
     h1 {
+      margin-top: 0;
       font-size: 2.25rem;  /* ~36px */
       border-bottom: 2px solid #ddd;
       padding-bottom: 0.3em;
@@ -75,12 +79,19 @@
 
     /* Lists */
     ul, ol {
-      padding-left: 1em;
-      margin: 0.1em 0;
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+
+    body > ul,
+    body > ol {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      margin-left: 2rem;
     }
 
     li {
-      margin: 0.25em 0;
+      margin: 0.2rem 0;
     }
 
     /* Task lists */
@@ -299,10 +310,11 @@
 
     /* Page Breaks */
     .page-break {
-      page-break-before: always;
       break-before: page;
       display: block;
+      width: 100%;
       height: 0;
+      padding: 0;
       margin: 0;
     }
 
@@ -389,6 +401,7 @@
 <li><a href="#tables">Tables</a></li>
 <li><a href="#horizontal-rule">Horizontal Rule</a></li>
 <li><a href="#emoji">Emoji</a></li>
+<li><a href="#html-content">HTML Content</a></li>
 <li><a href="#footnotes">Footnotes</a>
 <ul>
 <li><a href="#single-line-footnote">Single Line Footnote</a></li>
@@ -396,7 +409,6 @@
 </ul>
 </li>
 <li><a href="#subscript-and-superscript">Subscript and Superscript</a></li>
-<li><a href="#html-content">HTML Content</a></li>
 <li><a href="#containers">Containers</a>
 <ul>
 <li><a href="#tip-container">Tip container</a></li>
@@ -407,7 +419,6 @@
 </li>
 <li><a href="#pagebreak">Pagebreak</a></li>
 <li><a href="#mermaid-diagram">Mermaid Diagram</a></li>
-<li><a href="#pagebreak-again">Pagebreak again</a></li>
 <li><a href="#plantuml-diagram">PlantUML Diagram</a></li>
 <li><a href="#solving-a-system-of-linear-equations">Solving a System of Linear Equations</a>
 <ul>
@@ -419,12 +430,12 @@
 </ul>
 </li>
 </ul>
+<div class="page-break"></div>
 <h2 id="h2-header" tabindex="-1">H2 Header</h2>
 <h3 id="h3-header" tabindex="-1">H3 Header</h3>
 <h4 id="h4-header" tabindex="-1">H4 Header</h4>
 <h5 id="h5-header" tabindex="-1">H5 Header</h5>
 <h6 id="h6-header" tabindex="-1">H6 Header</h6>
-<hr>
 <h2 id="text-styling" tabindex="-1">Text Styling</h2>
 <p>This is <strong>bold</strong> text.<br>
 This is <em>italic</em> text.<br>
@@ -437,7 +448,6 @@ This is <code>inline code</code>.</p>
 <p>Nested blockquote.</p>
 </blockquote>
 </blockquote>
-<hr>
 <h2 id="lists" tabindex="-1">Lists</h2>
 <h3 id="unordered" tabindex="-1">Unordered</h3>
 <ul>
@@ -459,21 +469,19 @@ This is <code>inline code</code>.</p>
 </ol>
 </li>
 </ol>
-<hr>
+<div class="page-break"></div>
 <h2 id="task-list" tabindex="-1">Task List</h2>
 <ul class="contains-task-list">
 <li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> Unchecked task</li>
 <li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> Checked task</li>
 </ul>
-<hr>
 <h2 id="links" tabindex="-1">Links</h2>
 <p>Inline link: <a href="https://www.openai.com">OpenAI</a><br>
 Reference-style link: <a href="https://www.google.com">Google</a><br>
 Autolink: <a href="https://example.com">https://example.com</a></p>
-<hr>
 <h2 id="images" tabindex="-1">Images</h2>
 <p><img src="https://img.freepik.com/vecteurs-libre/bonjour-bande-dessinee_53876-26585.jpg" alt="Alt text for image"></p>
-<hr>
+<div class="page-break"></div>
 <h2 id="code" tabindex="-1">Code</h2>
 <h3 id="inline-code" tabindex="-1">Inline <code>code</code></h3>
 <p>Inline <code>code</code> in a sentence.</p>
@@ -487,7 +495,6 @@ greet(&quot;World&quot;);
 <pre><code class="language-bash"># Bash example
 echo &quot;Hello, terminal!&quot;
 </code></pre>
-<hr>
 <h2 id="tables" tabindex="-1">Tables</h2>
 <table>
 <thead>
@@ -507,27 +514,22 @@ echo &quot;Hello, terminal!&quot;
 </tr>
 </tbody>
 </table>
-<hr>
 <h2 id="horizontal-rule" tabindex="-1">Horizontal Rule</h2>
-<hr>
 <h2 id="emoji" tabindex="-1">Emoji</h2>
 <p>Here is a smiley 😄<br>
 Here is a rocket 🚀<br>
 Here is an antenna: 📡</p>
-<hr>
+<h2 id="html-content" tabindex="-1">HTML Content</h2>
+<div style="color: red; font-weight: bold;">This is a styled div using raw HTML</div>
+<div class="page-break"></div>
 <h2 id="footnotes" tabindex="-1">Footnotes</h2>
 <h3 id="single-line-footnote" tabindex="-1">Single Line Footnote</h3>
 <p>Here is a footnote reference.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
 <h3 id="multiple-lines-footnote" tabindex="-1">Multiple Lines Footnote</h3>
 <p>Here is a long footnote reference.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
-<hr>
 <h2 id="subscript-and-superscript" tabindex="-1">Subscript and Superscript</h2>
 <p>Subscript: H<sub>2</sub>O<br>
 Superscript: 29<sup>th</sup></p>
-<hr>
-<h2 id="html-content" tabindex="-1">HTML Content</h2>
-<div style="color: red; font-weight: bold;">This is a styled div using raw HTML</div>
-<hr>
 <h2 id="containers" tabindex="-1">Containers</h2>
 <h3 id="tip-container" tabindex="-1">Tip container</h3>
 <div class="tip">
@@ -545,7 +547,6 @@ Superscript: 29<sup>th</sup></p>
 <details class="spoiler-open" open><summary class="spoiler-summary">HIDDEN SURPRISE</summary>
 <p><em>Gotcha!</em></p>
 </details>
-<hr>
 <h2 id="pagebreak" tabindex="-1">Pagebreak</h2>
 <div class="page-break"></div>
 <h2 id="mermaid-diagram" tabindex="-1">Mermaid Diagram</h2>
@@ -571,12 +572,9 @@ packet-beta
 160-191: &quot;(Options and Padding)&quot;
 192-255: &quot;Data (variable length)&quot;
 </div>
-<hr>
-<h2 id="pagebreak-again" tabindex="-1">Pagebreak again</h2>
-<div class="page-break"></div>
 <h2 id="plantuml-diagram" tabindex="-1">PlantUML Diagram</h2>
 <img src="https://www.plantuml.com/plantuml/svg/NP0x3iCW341tdyBY1A0eUpvJjofBnueGag1IY82ewkthW5fLsPxjznXeOf8XxKyBodhrG4JM7t3dZ5X6x3c-J5fnqy7u2Mj-5iLN52SHjzr6ZQ96FyzH9nGSHkDaU5FRPM2vx41vfmovh2_0yeCG_BZ7HFQGeTW3I2UjNsZTPYZh5g3XqAE9U9ciXk57xK6Spe9pw8vXDSjQr9iqoRYbsDVWbOxnc7DJKLDHC_oR-IAWqMwYN_i0" alt="uml diagram">
-<hr>
+<div class="page-break"></div>
 <h2 id="solving-a-system-of-linear-equations" tabindex="-1">Solving a System of Linear Equations</h2>
 <p>Here is an example of inline math:</p>
 <p>The slope of the line is given by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mfrac><mrow><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub></mrow><mrow><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">m = \frac{y_2 - y_1}{x_2 - x_1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2995em;vertical-align:-0.4451em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8544em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.4461em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:-0.0359em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:-0.0359em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4451em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>.</p>

@@ -1,10 +1,15 @@
 {
   "name": "markdown-pdf-enhanced",
   "displayName": "Markdown PDF Enhanced",
-  "description": "Convert Markdown to PDF with Mermaid, KaTeX, PlantUML, and more.",
-  "version": "0.0.1",
+  "description": "Convert Markdown to PDF with support for Mermaid, KaTeX, PlantUML, and more.",
+  "version": "0.5.0",
+  "publisher": "IRVece",
   "engines": {
     "vscode": "^1.100.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IvanR-Vecerina/markdown-pdf-enhanced.git"
   },
   "categories": [
     "Other"
@@ -15,17 +20,17 @@
     "commands": [
       {
         "command": "markdownPdfEnhanced.exportToPdf",
-        "title": "Export to PDF",
+        "title": "Markdown PDF Enhanced: Export to PDF",
         "category": "Markdown PDF Enhanced"
       },
       {
         "command": "markdownPdfEnhanced.exportToHtml",
-        "title": "Export to HTML",
+        "title": "Markdown PDF Enhanced: Export to HTML",
         "category": "Markdown PDF Enhanced"
       },
       {
         "command": "markdownPdfEnhanced.exportToHtmlAndPdf",
-        "title": "Export to HTML and PDF",
+        "title": "Markdown PDF Enhanced: Export to HTML and PDF",
         "category": "Markdown PDF Enhanced"
       }
     ],
@@ -34,17 +39,17 @@
         {
           "command": "markdownPdfEnhanced.exportToPdf",
           "when": "resourceLangId == markdown",
-          "group": "navigation"
+          "group": "markdownPdfEnhanced@1"
         },
         {
           "command": "markdownPdfEnhanced.exportToHtml",
           "when": "resourceLangId == markdown",
-          "group": "navigation"
+          "group": "markdownPdfEnhanced@2"
         },
         {
           "command": "markdownPdfEnhanced.exportToHtmlAndPdf",
           "when": "resourceLangId == markdown",
-          "group": "navigation"
+          "group": "markdownPdfEnhanced@2"
         }
       ]
     },
@@ -59,7 +64,7 @@
         },
         "markdownPdfEnhanced.pdfOptions.header.left": {
           "type": "string",
-          "default": "Ivan - {Date}",
+          "default": "{FileName}",
           "description": "Left-aligned header content. Supports macros."
         },
         "markdownPdfEnhanced.pdfOptions.header.center": {
@@ -69,7 +74,7 @@
         },
         "markdownPdfEnhanced.pdfOptions.header.right": {
           "type": "string",
-          "default": "{Logo}",
+          "default": "{Date}",
           "description": "Right-aligned header content. Supports macros."
         },
         "markdownPdfEnhanced.pdfOptions.footer.left": {
@@ -89,22 +94,22 @@
         },
         "markdownPdfEnhanced.pdfOptions.margin.top": {
           "type": "string",
-          "default": "1in",
+          "default": "0.5in",
           "description": "Top margin (e.g., 1in, 20mm, 2cm)."
         },
         "markdownPdfEnhanced.pdfOptions.margin.right": {
           "type": "string",
-          "default": "1in",
+          "default": "0.7in",
           "description": "Right margin."
         },
         "markdownPdfEnhanced.pdfOptions.margin.bottom": {
           "type": "string",
-          "default": "1in",
+          "default": "0.5in",
           "description": "Bottom margin."
         },
         "markdownPdfEnhanced.pdfOptions.margin.left": {
           "type": "string",
-          "default": "1in",
+          "default": "0.7in",
           "description": "Left margin."
         }
       }

@@ -39,7 +39,7 @@ export async function convertHtmlToPdf(htmlPath: string, pdfPath: string, option
     displayHeaderFooter: options?.displayHeaderFooter ?? true,
     headerTemplate: options?.headerTemplate ?? `<span></span>`,
     footerTemplate: options?.footerTemplate ?? `
-      <div style="font-size:10px; width:100%; text-align:right; padding-right:1cm;">
+      <div style="font-size:10px; width:100%; text-align:right; padding-right:1cm; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;">
         Page <span class="pageNumber"></span> of <span class="totalPages"></span>
       </div>
     `,
